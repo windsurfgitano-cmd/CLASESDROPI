@@ -1,0 +1,7 @@
+{
+  "name": "clasesdropi",
+  "private": true,
+  "scripts": {
+    "build": "node build.mjs"
+  }
+}
