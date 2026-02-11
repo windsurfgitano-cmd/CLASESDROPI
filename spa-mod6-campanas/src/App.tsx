@@ -51,12 +51,17 @@ function QuizCard({ question, answer }: { question: string; answer: string }) {
   );
 }
 
+function TeacherNote({ children }: { children: React.ReactNode }) {
+  return <div className="teacher-note">{children}</div>;
+}
+
 function App() {
   const rootRef = useRef<HTMLDivElement>(null);
+  const [teacherMode, setTeacherMode] = useState(false);
   useScrollAnimations(rootRef);
 
   return (
-    <div ref={rootRef} className="lesson">
+    <div ref={rootRef} className={`lesson${teacherMode ? ' teacher-mode' : ''}`}>
 
       <header className="hero">
         <div className="hero-canvas-bg">
@@ -77,11 +82,25 @@ function App() {
         </div>
       </header>
 
+      <TeacherNote>
+        <strong>Glosario profe (en simple):</strong><br />
+        <strong>ABO:</strong> tú decides cuánta plata va a cada grupo de personas. Como repartir mesada: "$5 para ti, $5 para ti".<br />
+        <strong>CBO:</strong> le das toda la plata a Meta y él decide dónde ponerla según qué funciona mejor. Como darle la billetera al DJ.<br />
+        <strong>CTR:</strong> de cada 100 personas que ven tu anuncio, cuántas hacen clic. Arriba de 1% = bien. Si es bajo, el creativo no atrapa.<br />
+        <strong>CPA:</strong> cuánto te cuesta cada resultado (compra, lead, etc). Si vendes algo de $20 y el CPA es $15, solo ganas $5. Ojo ahí.<br />
+        <strong>ROAS:</strong> por cada peso que gastas, cuántos vuelven. ROAS 3 = gasté $1, me volvieron $3. Mientras más alto, mejor.<br />
+        <strong>Lookalike (LAL):</strong> le dices a Meta "busca gente parecida a mis clientes". Meta busca gemelos de tus compradores.<br />
+        <strong>Retargeting:</strong> mostrarle anuncios a gente que YA visitó tu tienda pero no compró. Recordatorio: "oye, se te quedó esto".<br />
+        <strong>Conversiones:</strong> las acciones que te importan (compra, agregar al carrito). Es lo que le dices a Meta que optimice.
+      </TeacherNote>
+
       {/* ===== Bloque 1: ABO vs CBO ===== */}
       <section className="lesson-section" id="s1">
         <span className="section-number">Bloque 1</span>
         <h2 className="section-title">ABO vs CBO</h2>
         <p className="section-sub">Solo hay dos formas de organizar el presupuesto en Meta. 10 minutos.</p>
+
+        <TeacherNote>La mayoría elegirá ABO y está bien — es lo correcto para quien empieza sin datos. No presiones hacia CBO.</TeacherNote>
 
         <img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=900&q=80" alt="Marketing digital" className="section-img" />
 
@@ -126,6 +145,8 @@ function App() {
         <span className="section-number">Bloque 2</span>
         <h2 className="section-title">Crear campaña + 3 públicos</h2>
         <p className="section-sub">Configuramos la campaña con 3 conjuntos de audiencia distintos. 20 minutos.</p>
+
+        <TeacherNote>Si no tienen datos para crear Lookalike, que lo anoten como tarea. No te atasques en eso. Recorre pantallas rápido al final del bloque.</TeacherNote>
 
         <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=900&q=80" alt="Audiencia objetivo" className="section-img" />
 
@@ -193,6 +214,8 @@ function App() {
         <h2 className="section-title">Probar evento del píxel</h2>
         <p className="section-sub">Antes de gastar un peso, verificamos que el píxel registra. 10 minutos.</p>
 
+        <TeacherNote>Si el píxel no dispara, vuelve al módulo 4: dominio + integración Shopify. Error más común: dominio no verificado.</TeacherNote>
+
         <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80" alt="Análisis de datos" className="section-img" />
 
         <div className="explain">
@@ -230,6 +253,8 @@ function App() {
         <span className="section-number">Bloque 4</span>
         <h2 className="section-title">Métricas que importan</h2>
         <p className="section-sub">Configurar las columnas correctas y definir su KPI. 10 minutos.</p>
+
+        <TeacherNote><strong>Escribe en la pizarra: CTR &gt; 1%, CPA &lt; margen.</strong> Que lo copien en sus notas. Es la brújula que van a usar después de clase.</TeacherNote>
 
         <div className="explain">
           Los números sin contexto no sirven. Vamos a poner las columnas que importan:<br /><br />
@@ -284,6 +309,8 @@ function App() {
         <h2 className="section-title">Checklist final</h2>
         <p className="section-sub">Todo marcado = campaña lista para lanzar (o lo más cerca posible).</p>
 
+        <TeacherNote>Si alguna no tiene los 3 públicos, al menos debe tener Interés + Retargeting. LAL puede esperar.</TeacherNote>
+
         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=80" alt="Métricas de éxito" className="section-img" />
 
         <ul className="checklist">
@@ -315,7 +342,16 @@ function App() {
         <div className="closing-quote">
           "¿Qué es lo peor que pueden hacer? Lanzar sin píxel verificado. Gastan plata y no saben quién compró ni por qué."
         </div>
+        <TeacherNote>Recuerda: NO activen campañas en clase con plata real. Solo dejar todo listo. La activación la hacen después con su propio presupuesto.</TeacherNote>
       </div>
+
+      <button
+        className={`teacher-toggle${teacherMode ? ' active' : ''}`}
+        onClick={() => setTeacherMode(!teacherMode)}
+        title={teacherMode ? 'Ocultar notas' : 'Modo profesor'}
+      >
+        {teacherMode ? '👁' : '🔑'}
+      </button>
     </div>
   );
 }

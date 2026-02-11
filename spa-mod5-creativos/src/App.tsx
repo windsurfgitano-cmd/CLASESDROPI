@@ -51,12 +51,17 @@ function QuizCard({ question, answer }: { question: string; answer: string }) {
   );
 }
 
+function TeacherNote({ children }: { children: React.ReactNode }) {
+  return <div className="teacher-note">{children}</div>;
+}
+
 function App() {
   const rootRef = useRef<HTMLDivElement>(null);
+  const [teacherMode, setTeacherMode] = useState(false);
   useScrollAnimations(rootRef);
 
   return (
-    <div ref={rootRef} className="lesson">
+    <div ref={rootRef} className={`lesson${teacherMode ? ' teacher-mode' : ''}`}>
 
       <header className="hero">
         <div className="hero-canvas-bg">
@@ -77,11 +82,24 @@ function App() {
         </div>
       </header>
 
+      <TeacherNote>
+        <strong>Glosario profe (en simple):</strong><br />
+        <strong>Hook:</strong> los primeros 1-3 segundos del video. Es el anzuelo. Si no atrapa, la persona sigue scrolleando y chao.<br />
+        <strong>AIDA:</strong> una receta para vender con palabras: Atención (hook) → Interés (problema) → Deseo (solución) → Acción (CTA). Funciona en videos, textos, todo.<br />
+        <strong>CTA:</strong> el empujón final. "Pide ahora", "Paga al recibir". Sin CTA la gente dice "qué bonito" y se va.<br />
+        <strong>Prueba social:</strong> mostrar que otros ya compraron y les fue bien. "Si ella pudo, yo también". Reseñas, testimonios, números.<br />
+        <strong>Storyboard:</strong> un dibujito de lo que va a pasar en cada escena del video. No tiene que ser bonito, solo claro. 3 cajitas y listo.<br />
+        <strong>Marca de agua:</strong> tu logo chiquito en una esquina del video. Como firmar un cuadro: dice "esto es mío".<br />
+        <strong>Creativo:</strong> así se le dice al anuncio en sí (video, imagen, texto). Es lo que la gente VE.
+      </TeacherNote>
+
       {/* ===== Bloque 1: Estructura de video ganador ===== */}
       <section className="lesson-section" id="s1">
         <span className="section-number">Bloque 1</span>
         <h2 className="section-title">Estructura de un video ganador</h2>
         <p className="section-sub">Los 4 ingredientes que todo video que vende tiene. 10 minutos.</p>
+
+        <TeacherNote>Muestra en pantalla 2 hooks reales (uno malo, uno bueno) y pregunta cuál les atrapa. Deja que hablen antes de dar la respuesta.</TeacherNote>
 
         <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=900&q=80" alt="Producción de video" className="section-img" />
 
@@ -158,11 +176,11 @@ function App() {
           <h4>Manos a la obra — 5 minutos (cronómetro)</h4>
           <ul>
             <li>Escriban su guion AIDA de 6 líneas.</li>
-            <li>La nieta: que sea atrevida y directa.</li>
-            <li>La abuela: que sea clara y confiable.</li>
-            <li>Después léanme solo la primera línea (el hook).</li>
+            <li>Después lean solo la primera línea (el hook).</li>
           </ul>
         </div>
+
+        <TeacherNote><strong>Pon cronómetro visible, 5 min exactos.</strong> La nieta: que sea atrevida y directa. La abuela: que sea clara y confiable. Si alguien no termina, que escriba lo que pueda.</TeacherNote>
       </section>
 
       {/* ===== Bloque 3: Storyboard + Grabado ===== */}
@@ -170,6 +188,8 @@ function App() {
         <span className="section-number">Bloque 3</span>
         <h2 className="section-title">Storyboard + Grabado exprés</h2>
         <p className="section-sub">Convertir el guion en 3 escenas y grabar un clip corto. 15 minutos.</p>
+
+        <TeacherNote>Si alguien tiene vergüenza de grabar, que narre sobre una imagen del producto. No forzar la cámara.</TeacherNote>
 
         <img src="https://images.unsplash.com/photo-1512758017271-d7b84c2113f1?w=900&q=80" alt="Storyboard" className="section-img" />
 
@@ -223,6 +243,8 @@ function App() {
         <h2 className="section-title">Marca de agua + Poll del mejor hook</h2>
         <p className="section-sub">Firmar su creativo y competir por el mejor hook. 10 minutos.</p>
 
+        <TeacherNote>Votación a mano alzada. Si empatan, tú decides. La ganadora muestra su pantalla 2 min como premio.</TeacherNote>
+
         <div className="explain">
           Toda pieza que sale de acá lleva su marca. Es como <strong>firmar un cuadro</strong>. Abran Canva o el editor que prefieran, pongan su logo en una esquina y el CTA como texto final.
         </div>
@@ -268,6 +290,8 @@ function App() {
         <h2 className="section-title">Checklist final</h2>
         <p className="section-sub">Todo marcado = listas para lanzar con este creativo en el módulo 6.</p>
 
+        <TeacherNote>Revisa que cada una tenga al menos el guion + un clip (aunque sea básico). El storyboard es bonus.</TeacherNote>
+
         <img src="https://images.unsplash.com/photo-1563986768609-322da13575f2?w=900&q=80" alt="Branding creativo" className="section-img" />
 
         <ul className="checklist">
@@ -299,7 +323,16 @@ function App() {
         <div className="closing-quote">
           "El secreto no es hacer UN video perfecto. Es hacer muchos videos buenos con la misma estructura y probar cuál gana."
         </div>
+        <TeacherNote>Pide que guarden su guion AIDA y el clip. Lo van a usar directamente en el módulo 6 para la campaña.</TeacherNote>
       </div>
+
+      <button
+        className={`teacher-toggle${teacherMode ? ' active' : ''}`}
+        onClick={() => setTeacherMode(!teacherMode)}
+        title={teacherMode ? 'Ocultar notas' : 'Modo profesor'}
+      >
+        {teacherMode ? '👁' : '🔑'}
+      </button>
     </div>
   );
 }

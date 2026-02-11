@@ -56,12 +56,17 @@ function QuizCard({ question, answer }: { question: string; answer: string }) {
   );
 }
 
+function TeacherNote({ children }: { children: React.ReactNode }) {
+  return <div className="teacher-note">{children}</div>;
+}
+
 function App() {
   const rootRef = useRef<HTMLDivElement>(null);
+  const [teacherMode, setTeacherMode] = useState(false);
   useScrollAnimations(rootRef);
 
   return (
-    <div ref={rootRef} className="lesson">
+    <div ref={rootRef} className={`lesson${teacherMode ? ' teacher-mode' : ''}`}>
 
       {/* ===== HERO ===== */}
       <header className="hero">
@@ -83,11 +88,24 @@ function App() {
         </div>
       </header>
 
+      <TeacherNote>
+        <strong>Glosario profe (en simple):</strong><br />
+        <strong>Fan Page:</strong> la página de tu negocio en Facebook. Es tu vitrina, no tu perfil personal.<br />
+        <strong>Business Manager (BM):</strong> la oficina central de Meta donde manejas páginas, anuncios y permisos. Todo se controla desde ahí.<br />
+        <strong>2FA (doble verificación):</strong> una cerradura extra. Además de tu contraseña, te pide un código del celular. Si te hackean la clave, sin el código no entran.<br />
+        <strong>Píxel:</strong> un chismoso invisible que pones en tu tienda. Le cuenta a Facebook quién entró, quién compró, quién solo miró. Sin él, gastas plata a ciegas.<br />
+        <strong>Dominio:</strong> la dirección de tu tienda (ej: mitienda.com). Verificarlo es decirle a Meta "esta tienda es mía de verdad".<br />
+        <strong>DNS:</strong> la guía telefónica de internet. Cuando verificas el dominio, a veces tarda en actualizar (como el correo, no llega al instante).<br />
+        <strong>CTA:</strong> "Call to Action" = el botón que le dice al cliente qué hacer. Ej: "Comprar ahora", "Enviar mensaje".
+      </TeacherNote>
+
       {/* ===== SECCIÓN 1: Fan Page ===== */}
       <section className="lesson-section" id="s1">
         <span className="section-number">Bloque 1</span>
         <h2 className="section-title">Fan Page en 7 clics</h2>
         <p className="section-sub">La cara de su negocio en Facebook. Logo, portada, bio y CTA. 15 minutos.</p>
+
+        <TeacherNote>Si alguna ya tiene fan page, que ayude a la de al lado. Peer teaching ahorra tiempo. Escucha cómo leen sus bios mutuamente — corrige si son muy genéricas.</TeacherNote>
 
         <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=900&q=80" alt="Social media marketing" className="section-img" />
 
@@ -145,6 +163,8 @@ function App() {
         <span className="section-number">Bloque 2</span>
         <h2 className="section-title">Business Manager + 2FA</h2>
         <p className="section-sub">La oficina central de todo: páginas, anuncios, píxeles. Y la cerradura doble que protege todo. 15 minutos.</p>
+
+        <TeacherNote><strong>2FA es donde más se traban.</strong> Ten tu teléfono listo para mostrar el ejemplo paso a paso. Haz cada clic al mismo tiempo en el proyector.</TeacherNote>
 
         <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=900&q=80" alt="Seguridad digital" className="section-img" />
 
@@ -205,6 +225,8 @@ function App() {
         <h2 className="section-title">Dominio verificado + Shopify conectado</h2>
         <p className="section-sub">Decirle a Meta que la tienda es suya y conectar el píxel. 15 minutos.</p>
 
+        <TeacherNote>Si el check verde no aparece inmediatamente, puede ser propagación DNS (~5 min a 48h). Tranquilas. Incentivo: la primera en mostrar dominio verificado gana 10 min de feedback 1:1.</TeacherNote>
+
         <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=80" alt="Conexión de sistemas" className="section-img" />
 
         <div className="explain">
@@ -241,7 +263,7 @@ function App() {
           <ul>
             <li>Agreguen su dominio y verifíquenlo. ¿Check verde? Muéstrenme la pantalla.</li>
             <li>Conecten Shopify con el píxel y disparen un evento de prueba.</li>
-            <li>Primera en mostrar dominio verificado gana 10 min de feedback 1:1.</li>
+            <li>Confirmen que el check verde aparece.</li>
           </ul>
         </div>
 
@@ -260,6 +282,8 @@ function App() {
         <span className="section-number">Verificación</span>
         <h2 className="section-title">Checklist final</h2>
         <p className="section-sub">Todo debe estar marcado antes de pasar al módulo 5.</p>
+
+        <TeacherNote>Pídeles screenshot de: fan page, BM con 2FA, dominio verificado, evento del píxel disparando. Son 4 capturas.</TeacherNote>
 
         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=80" alt="Dashboard de negocio" className="section-img" />
 
@@ -292,7 +316,16 @@ function App() {
         <div className="closing-quote">
           "¿Qué rompería todo si no lo hacen hoy? El 2FA y el dominio. Sin 2FA pueden perder la cuenta. Sin dominio, Meta no los toma en serio."
         </div>
+        <TeacherNote>Verifica que TODAS tengan 2FA activo antes de salir. Es el punto crítico de seguridad.</TeacherNote>
       </div>
+
+      <button
+        className={`teacher-toggle${teacherMode ? ' active' : ''}`}
+        onClick={() => setTeacherMode(!teacherMode)}
+        title={teacherMode ? 'Ocultar notas' : 'Modo profesor'}
+      >
+        {teacherMode ? '👁' : '🔑'}
+      </button>
     </div>
   );
 }

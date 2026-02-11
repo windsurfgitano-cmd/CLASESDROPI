@@ -365,6 +365,55 @@ body {
   color: var(--accent);
 }
 
+/* ---------- teacher mode ---------- */
+.teacher-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.08);
+  background: rgba(20,20,30,0.6);
+  color: rgba(255,255,255,0.2);
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.25s;
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.teacher-toggle:hover {
+  border-color: #fbbf24;
+  color: #fbbf24;
+}
+.teacher-toggle.active {
+  background: #fbbf24;
+  color: #1a1a1a;
+  border-color: #fbbf24;
+  box-shadow: 0 0 20px rgba(251,191,36,0.3);
+}
+.teacher-note {
+  display: none;
+}
+.teacher-mode .teacher-note {
+  display: block;
+  background: rgba(251, 191, 36, 0.06);
+  border-left: 3px solid #fbbf24;
+  border-radius: 0 12px 12px 0;
+  padding: 14px 20px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: #fbbf24;
+  line-height: 1.6;
+}
+.teacher-mode .teacher-note strong {
+  color: #fcd34d;
+}
+
 /* ---------- responsive ---------- */
 @media (max-width: 700px) {
   .step-card { flex-direction: column; gap: 12px; }

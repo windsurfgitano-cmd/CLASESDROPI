@@ -62,12 +62,17 @@ function QuizCard({ question, answer }: { question: string; answer: string }) {
   );
 }
 
+function TeacherNote({ children }: { children: React.ReactNode }) {
+  return <div className="teacher-note">{children}</div>;
+}
+
 function App() {
   const rootRef = useRef<HTMLDivElement>(null);
+  const [teacherMode, setTeacherMode] = useState(false);
   useScrollAnimations(rootRef);
 
   return (
-    <div ref={rootRef} className="lesson">
+    <div ref={rootRef} className={`lesson${teacherMode ? ' teacher-mode' : ''}`}>
 
       {/* ===== HERO ===== */}
       <header className="hero">
@@ -89,11 +94,23 @@ function App() {
         </div>
       </header>
 
+      <TeacherNote>
+        <strong>Glosario profe (en simple):</strong><br />
+        <strong>Panel / Dashboard:</strong> la pantalla principal donde ves todo lo que pasa en tu tienda, como el tablero de un auto.<br />
+        <strong>Checkout:</strong> el momento en que el cliente pone sus datos y confirma la compra. La caja del supermercado, pero online.<br />
+        <strong>Integración:</strong> que dos sistemas se hablen entre sí. Ej: tu tienda le avisa a Dropi que hay un pedido nuevo.<br />
+        <strong>Pedido de prueba:</strong> un pedido inventado para verificar que todo funciona antes de vender de verdad. Como un simulacro.<br />
+        <strong>Alertas:</strong> avisos automáticos que te llegan cuando pasa algo (pedido nuevo, pago, problema). Tu timbre de la puerta.<br />
+        <strong>Contraentrega (COD):</strong> el cliente paga cuando recibe el producto, no antes. Bajo riesgo para el comprador.
+      </TeacherNote>
+
       {/* ===== SECCIÓN 1: Acceso y panel ===== */}
       <section className="lesson-section" id="s1">
         <span className="section-number">Bloque 1</span>
         <h2 className="section-title">Acceso y panel</h2>
         <p className="section-sub">Vamos a entrar a RELISIT y entender qué mide cada parte del panel. 10 minutos.</p>
+
+        <TeacherNote>Espera ~2 min para que todas entren. Si alguien no puede acceder, resuélvelo en voz alta — las demás aprenden del troubleshooting.</TeacherNote>
 
         <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80" alt="Panel de analytics" className="section-img" />
 
@@ -126,7 +143,7 @@ function App() {
 
         <div className="task">
           <h4>Manos a la obra</h4>
-          <p>Abran RELISIT en sus PCs y naveguen al panel principal. Cuando lo vean, levanten la mano.</p>
+          <p>Abran RELISIT en sus PCs y naveguen al panel principal.</p>
         </div>
 
         <div className="local-video-ref">
@@ -144,6 +161,8 @@ function App() {
         <span className="section-number">Bloque 2</span>
         <h2 className="section-title">Configuración básica</h2>
         <p className="section-sub">Llenamos lo mínimo para que funcione: datos, validaciones y alertas. 15 minutos.</p>
+
+        <TeacherNote>Si alguien se atasca en un campo, pregúntale en voz alta para que el grupo aprenda. Error más común: campo de pago vacío.</TeacherNote>
 
         <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=900&q=80" alt="Configuración de formularios" className="section-img" />
 
@@ -196,6 +215,8 @@ function App() {
         <h2 className="section-title">Pedido de prueba</h2>
         <p className="section-sub">El momento de la verdad: creamos un pedido ficticio y verificamos que todo funciona. 10 minutos.</p>
 
+        <TeacherNote>Pide que te muestren la pantalla con el pedido creado. Recorre visualmente cada PC. Si alguien no puede crear el pedido, revisa que completó la sección 2.</TeacherNote>
+
         <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&q=80" alt="Proceso de checkout" className="section-img" />
 
         <div className="explain">
@@ -224,7 +245,7 @@ function App() {
           <ul>
             <li>Creen su pedido ficticio con datos inventados.</li>
             <li>Vayan a la lista de pedidos y confirmen que aparece.</li>
-            <li>Muéstrenme su pantalla — quiero ver el pedido ahí.</li>
+            <li>Confirmen que el pedido aparece en la lista.</li>
           </ul>
         </div>
 
@@ -244,6 +265,8 @@ function App() {
         <span className="section-number">Verificación</span>
         <h2 className="section-title">Checklist final</h2>
         <p className="section-sub">Marquen cada punto cuando lo tengan listo. Todo debe estar en verde antes de seguir al módulo 4.</p>
+
+        <TeacherNote>Recorre cada pantalla y verifica visualmente. Anota quién no completó para seguimiento después de clase.</TeacherNote>
 
         <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=900&q=80" alt="Checklist completo" className="section-img" />
 
@@ -285,7 +308,16 @@ function App() {
         <div className="closing-quote">
           "¿Qué rompería todo si no lo prueban hoy? La integración. Si no prueban ahora, no saben si funciona hasta que un cliente real les compre... y ahí ya es tarde."
         </div>
+        <TeacherNote>Antes de cerrar, pide que tomen screenshot del panel con el pedido. Es su comprobante y te sirve para verificar después.</TeacherNote>
       </div>
+
+      <button
+        className={`teacher-toggle${teacherMode ? ' active' : ''}`}
+        onClick={() => setTeacherMode(!teacherMode)}
+        title={teacherMode ? 'Ocultar notas' : 'Modo profesor'}
+      >
+        {teacherMode ? '👁' : '🔑'}
+      </button>
     </div>
   );
 }
