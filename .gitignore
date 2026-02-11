@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# IDE / System
+.windsurf/
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
+
+# Large course material (videos, audio) — play locally, don't push
+Mastermind/
+*.mp4
+*.wav
+*.xlsx
+*.docx
+
+# Env
+.env
+.env.local
